@@ -11,11 +11,11 @@ func _on_Coin_body_entered(body):
 	if body == player_white:
 		other_entered = true
 	if is_entered == true and other_entered == true:
-		print("victory")
+		get_tree().change_scene("res://scène/Level2.tscn")
 
 
 func _on_Area2D_body_entered(body):
-	get_tree().quit()
+	get_tree().change_scene("res://scène/Game_Over.tscn")
 
 
 func _on_Coin_body_exited(body):

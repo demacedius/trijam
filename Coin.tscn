@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Asset/tileset-Sheet.png" type="Texture" id=1]
+
+[sub_resource type="CircleShape2D" id=18]
+radius = 8.20056
+
+[node name="Coin" type="Area2D"]
+position = Vector2( 860.766, 629.829 )
+scale = Vector2( 2, 2 )
+
+[node name="Area2D" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 64, 0, 16, 16 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 18 )

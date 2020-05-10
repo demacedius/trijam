@@ -1,13 +1,4 @@
-extends KinematicBody2D
-
-const SPEED = 300
-const GRAVITY = 3600
-const UP = Vector2(0,-1)
-const JUMP_SPEED = -1050
-const JUMP_BOOST = 2
-
-var motion = Vector2()
-
+extends "res://script/Player.gd"
 
 
 
@@ -27,9 +18,9 @@ func fall(delta):
 
 func run():
 	if Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left"):
-		motion.x = SPEED
+		motion.x = speed
 	elif Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right"):
-		motion.x = -SPEED
+		motion.x = -speed
 	else:
 		motion.x = 0
 
