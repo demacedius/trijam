@@ -1,33 +1,39 @@
-class Player:
-	extends KinematicBody2D
-	
-	var speed = 200
-	var velocity = Vector2()
-	var jump_force = -6000
-	const GRAVITY = 100
-	const FLOOR = Vector2(0,-1)
-	var on_ground = false
-	
-	func _physics_process(delta):
-		velocity = Vector2()
-		if Input.is_action_pressed("ui_right"):
-			velocity.x += 1
-		if Input.is_action_pressed("ui_left"):
-			velocity.x -= 1
-		else:
-			velocity.x = 0
-		velocity = velocity.normalized() * speed
-		
-		if Input.is_action_just_pressed("ui_up"):
-			if is_on_floor():
-				on_ground = true
-				velocity.y = jump_force
-				on_ground = false
-		
-			
-		velocity.y += GRAVITY 
-		
-		velocity = move_and_slide(velocity, FLOOR)
-	
-	func _on_Area2D_body_entered(body):
-		get_tree().quit()
+extends KinematicBody2D
+
+const SPEED = 300
+const GRAVITY = 3600
+const UP = Vector2(0,-1)
+const JUMP_SPEED = -1050
+const JUMP_BOOST = 2
+
+var motion = Vector2()
+
+
+
+
+func _physics_process(delta):
+	fall(delta)
+	run()
+	jump()
+	move_and_slide(motion, UP)
+
+
+func fall(delta):
+	if is_on_floor():
+		motion.y = 0
+	else:
+		motion.y += GRAVITY * delta
+
+
+func run():
+	if Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left"):
+		motion.x = SPEED
+	elif Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right"):
+		motion.x = -SPEED
+	else:
+		motion.x = 0
+
+
+func jump():
+	if is_on_floor() and Input.is_action_pressed("ui_up"):
+		motion.y = JUMP_SPEED
